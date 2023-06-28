@@ -1,8 +1,11 @@
 import {legacy_createStore, createStore, combineReducers, applyMiddleware} from "redux"
 import thunk from "redux-thunk"
 
-const reducer = combineReducers({
+import TodoTestReducers from "./reducers/TodoTestReducers"
 
+
+const reducer = combineReducers({
+  Todo : TodoTestReducers
 })
 
 const initState = {}
