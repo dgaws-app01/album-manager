@@ -16,7 +16,13 @@ export const defineStore = (props) => {
       extraReducers : (builder) => {
         Object.keys(actions).forEach(action => {
           if(action.includes("*")){
-            
+            let actNm = action.replace("*", "")
+            let actDef = {
+              [`actNm`] : (action) => {
+                return action.type.includes(actNm)
+              }
+            }
+            builder.addMatcher()
           }
           else{
             builder.addCase(createAction(action), actions[action])
