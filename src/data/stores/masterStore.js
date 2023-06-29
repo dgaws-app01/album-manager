@@ -13,18 +13,23 @@ const stores = {
     preloadedState : {}
   })
 }
+
+const $0 = (o) => Object.keys(o)[0]
+
 export const modifyStore = (props) => {  
-  const storeName = Object.keys(props)[0]
-  const store = props[storeName]
+  const storeName = $0(props) 
+  const store = props[storeName] 
   if(storeName){
-    const name = Object.keys(store)[0]
-    const {[name]: {initialState, actions}} = props
+    const reducerName = $0(store) 
+    const {[reducerName]: {initialState, actions}} = store
+    
     const slice = createSlice({
-      name, 
+      reducerName, 
       initialState, 
       reducers : {},
       extraReducers : (builder) => {
         Object.keys(actions).forEach(action => {
+          let actDef = actions[action]
           if(action.includes("*")){
             let matcher = action.replace("*", "")
             let actNm = `is${titleCase(matcher)}`
@@ -32,27 +37,24 @@ export const modifyStore = (props) => {
               [actNm] : (action) => {
                 return action.type.includes(matcher)
               }
-            }
-            let actDef = actions[action]
+            }            
             builder.addMatcher(actMatcher[actNm], actDef)
           }
-          else{
-            let actDef = actions[action]
+          else{            
             builder.addCase(createAction(action), actDef)
           }
         })
       }
     })
-
+    
     console.log(slice)
 
   } 
-
-  
-  
-  
+ 
 
 }
+
+
 
 // Reducers
 
