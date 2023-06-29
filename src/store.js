@@ -4,7 +4,7 @@ import thunk from "redux-thunk"
 import {TodoTestReducer} from "./reducers/TodoTestReducers"
 
 
-export const reducer = combineReducers({
+let reducer = combineReducers({
   Todo : TodoTestReducer
 })
 
@@ -20,4 +20,4 @@ const store = legacy_createStore(reducer, initState , applyMiddleware(...middlew
 //console.log(store)
 
 export default store
-
+export const reducerP = (r)=> {store.replaceReducer()}

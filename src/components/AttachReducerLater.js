@@ -1,6 +1,8 @@
 import React from "react";import React from "react";
-import {reducer} from "../store"
+import {reducerP} from "../store"
+import {TodoTestReducer} from "./reducers/TodoTestReducers"
+
 export const AttachReducerLater = (params) => {
-  console.log(reducer)
+  console.log(reducerP)
   return <>Attaching later ...</>
 }
