@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
 
-import {TodoTestList} from "./components/TodoTestList.js"
+import {TodoTestList} from "./components/TodoTestList"
+import {AttachReducerLater} from "./components/AttachReducerLater"
 
 export default function App() {
   
@@ -10,7 +11,7 @@ export default function App() {
       <h1>Album manager .</h1>
       <TodoTestList nm="list 1"></TodoTestList>
       <TodoTestList nm="list 2"></TodoTestList>
-      hello
+      <AttachReducerLater></AttachReducerLater>
       
     </div>
   );

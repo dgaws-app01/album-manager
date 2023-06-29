@@ -4,7 +4,7 @@ import thunk from "redux-thunk"
 import {TodoTestReducer} from "./reducers/TodoTestReducers"
 
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   Todo : TodoTestReducer
 })
 
