@@ -16,6 +16,9 @@ const createEmptyStore = () => {
     preloadedState: {},
   });
   newStore.loadedReducers = {};  
+  /**
+   * @param {Slice} slice
+   */
   newStore.addSlice = (slice) => {
     let {name, reducer} = slice
     newStore.loadedReducers[name] = reducer
