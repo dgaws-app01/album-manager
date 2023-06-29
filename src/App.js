@@ -10,6 +10,7 @@ export default function App() {
       <h1>Album manager .</h1>
       <TodoTestList nm="list 1"></TodoTestList>
       <TodoTestList nm="list 2"></TodoTestList>
+      hello
       
     </div>
   );
