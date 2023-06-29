@@ -33,16 +33,19 @@ const stores = {
 
 stores.master.loadedReducers = {};
 
-const $0 = (o) => Object.keys(o)[0];
+const $0 = (o, n) => {
+  let name = Object.keys(o)[0]
+  return {[ n[0] ]: name, [ n[1] ] : o[name]}
+};
 
 export const modifyStore = (props) => {
-  const storeName = $0(props);
-  const store = props[storeName];
+  const {storeName, store} = $0(props, ["storeName", "store"]);
+  //const store = props[storeName];
   if (storeName) {
-    const reducerName = $0(store);
-    const {
-      [reducerName]: { initialState, actions },
-    } = store;
+    const {reducerName, reducer: {initialState, actions} } = $0(store, ["reducerName", "reducer"]);
+    // const {
+    //   [reducerName]: { initialState, actions },
+    // } = store;
 
     const slice = createSlice({
       reducerName,
