@@ -1,6 +1,6 @@
 import { configureStore, createAction, createReducer, createSlice } from '@reduxjs/toolkit'
 import thunk from "redux-thunk"
-import {} from "../../utils/text"
+import {titleCase} from "../../utils/text"
 
 import {  } from 'redux';
 
