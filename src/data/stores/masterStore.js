@@ -15,17 +15,17 @@ const createEmptyStore = () => {
     //middleware: (getDefaultMiddleware) => getDefaultMiddleware,
     preloadedState: {},
   });
-  newStore.loadedReducers = {};  
+  newStore.loadedReducers = {};
   /**
    * @param {Slice} slice
    */
   newStore.addSlice = (slice) => {
-    let {name, reducer} = slice
-    newStore.loadedReducers[name] = reducer
-    newStore.replaceReducer(combineReducers(newStore.loadedReducers))
-  }
+    let { name, reducer } = slice;
+    newStore.loadedReducers[name] = reducer;
+    newStore.replaceReducer(combineReducers(newStore.loadedReducers));
+  };
   return newStore;
-}
+};
 // Stores
 const stores = {
   master: createEmptyStore(),
@@ -34,15 +34,19 @@ const stores = {
 stores.master.loadedReducers = {};
 
 const $0 = (o, n) => {
-  let name = Object.keys(o)[0]
-  return {[ n[0] ]: name, [ n[1] ] : o[name]}
+  let name = Object.keys(o)[0];
+  return { [n[0]]: name, [n[1]]: o[name] };
 };
 
 export const modifyStore = (props) => {
-  const {storeName, store} = $0(props, ["storeName", "store"]);
+  const { storeName, store } = $0(props, ['storeName', 'store']);
+  const retVal = {}  
   //const store = props[storeName];
   if (storeName) {
-    const {reducerName, reducer: {initialState, actions} } = $0(store, ["reducerName", "reducer"]);
+    const {
+      reducerName,
+      reducer: { initialState, actions },
+    } = $0(store, ['reducerName', 'reducer']);
     // const {
     //   [reducerName]: { initialState, actions },
     // } = store;
@@ -70,8 +74,9 @@ export const modifyStore = (props) => {
       },
     });
 
-    const targetStore = stores[storeName] = stores[storeName] || createEmptyStore();
-    targetStore.addSlice(slice)
+    const targetStore = (stores[storeName] =
+      stores[storeName] || createEmptyStore());
+    targetStore.addSlice(slice);
     
 
     console.log(slice);
