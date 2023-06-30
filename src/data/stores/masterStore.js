@@ -142,7 +142,6 @@ const MasterProvider = (props) => {
 };
 
 
-
 export const hooks = {
   get mstr() {
     return useMstrSel((state) => state);
@@ -151,14 +150,21 @@ export const hooks = {
     return useStoreSel((state) => state);
   },
   set stor(v) {
-    //console.log(dspStor)
-    //let dsp = dspStor()
     setters.dspStor2(v);
   },
   set mstr(v) {
     setters.dspMstr2(v);
   },
 };
+
+// export const hooks = {
+//   get mstr(){return hooks_.mstr}, 
+//   get stor(){return hooks_.stor},
+//   set mstr(v){hooks_.mstr = v},
+//   set stor(v){hooks_.stor = v}
+// }
+
+//export const hooks = {mstr, stor} = hooks_
 
 export default MasterProvider;
 
