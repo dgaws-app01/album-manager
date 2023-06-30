@@ -99,12 +99,14 @@ const useStoreSel = createSelectorHook(store1Context)
 const useMstrSel = createSelectorHook(store2Context)
 const dspStor = createDispatchHook(store1Context)
 //const dspMstr = createDispatchHook(store2Context)
-const dspStor2
+export const setters = {
+}
 
-// export const dspStorF = () => {
-//   dspStor2 = dspStor()
-//   return <></>
-// } 
+export const dspStorF = ({children}) => {
+  setters.dspStor2 = dspStor()
+  console.log({setters})
+  return <>{children}</>
+} 
 
 export const hooks = {
   get mstr(){return useMstrSel((state)=> state)},
