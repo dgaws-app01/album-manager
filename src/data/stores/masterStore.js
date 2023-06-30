@@ -97,10 +97,23 @@ export const store2Context = React.createContext();
 
 const useStoreSel = createSelectorHook(store1Context)
 const useMstrSel = createSelectorHook(store2Context)
+const dspStor = createDispatchHook(store1Context)
+//const dspMstr = createDispatchHook(store2Context)
+const dspStor2
+
+// export const dspStorF = () => {
+//   dspStor2 = dspStor()
+//   return <></>
+// } 
 
 export const hooks = {
   get mstr(){return useMstrSel((state)=> state)},
   get stor(){return useStoreSel((state)=> state)},
+  set stor (v){ 
+    console.log(dspStor)
+    let dsp = dspStor()
+    dsp(v) 
+  }
 }
 
 
