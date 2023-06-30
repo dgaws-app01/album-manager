@@ -8,7 +8,7 @@ import {hooks} from '../data/stores/masterStore.js'
 export const AttachReducerLater = (params) => {
   
   const Todo = hooks.stor //useStoreSel((state) => {console.log({state});return state.Todo});
-    
+  console.log(`AttachReducerLater / ${new Date().getTime()} `)
   return (<>
     {JSON.stringify(Todo)}
     <button onClick={(e)=> hooks.stor = AddTodoAction(new Date().getSeconds()) }>Add Todo</button>

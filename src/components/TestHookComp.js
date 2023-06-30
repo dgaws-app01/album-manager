@@ -1,11 +1,14 @@
-import React from "react";
-import {hooks} from '../data/stores/masterStore.js'
+import React, {useState} from "react";
 
-export const TestComponent2 = (params) => {
-        const {Todo} = hooks.stor
-        console.log(`${new Date().getTime()} : TestComponent2 refreshed`)
+
+export const TestHookComp = (params) => {
+        //const {Todo} = hooks.stor
+        const [no, setNo] = useState(0)
+        let incr = (e) => setNo((n)=> n+1)
+        console.log(`TestHookComp / ${new Date().getTime()} `)
         return <>
-                <div>---- Test Comp 2 ---- </div>
-                <div>{Todo.todos[0].id}</div>
+                <div>---- TestHookComp ---- </div>
+                //<div>{no}</div>
+                <button onClick={(e)=> incr()}>Incr</button>
         </>
 }
