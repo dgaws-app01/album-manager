@@ -1,12 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore, createSelectorHook } from 'react-redux';
 import { AddTodoAction } from '../actions/TodoTestActions.js';
+import {store1Context, store2Context} from '../data/stores/masterStore.js'
 
 export const TodoTestList = (props) => {
   const [td, setTd] = useState();
   const dispatch = useDispatch();
-  const Todo = useSelector((state) => {console.log(state);return state.Todo});
+  const str = useStore()
+  
+  
+
+  const Todo = useSelector((state) => {console.log({str, state});return state.Todo});
   const { todos } = Todo || {};
   const { nm } = props;
 

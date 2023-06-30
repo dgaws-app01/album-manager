@@ -1,33 +1,34 @@
+import React from 'react';
 import {
   configureStore,
   createAction,
   createReducer,
   createSlice,
 } from '@reduxjs/toolkit';
-import { applyMiddleware, combineReducers } from 'redux';
+import { legacy_createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
+import { Provider, createSelectorHook, createDispatchHook } from 'react-redux';
 import { titleCase } from '../../utils/text';
 
 const createEmptyStore = () => {
-  let newStore = configureStore({
-    reducer: {},
-    //middleware: (getDefaultMiddleware) => getDefaultMiddleware,
-    preloadedState: {storeName : "masterStore"},    
-  });
-  newStore.loadedReducers = {};
-  /**
-   * @param {Slice} slice
-   */
-  newStore.addSlice = (slice) => {
-    let { name, reducer } = slice;
-    newStore.loadedReducers[name] = reducer;
-    newStore.replaceReducer(combineReducers(newStore.loadedReducers));
-  };
+  // let newStore = configureStore({
+  //   reducer: {},
+  //   //middleware: (getDefaultMiddleware) => [...getDefaultMiddleware],
+  //   preloadedState: {storeName : "masterStore"},    
+  // });
+  
+  // newStore.loadedReducers = {};
+  
+  // newStore.addSlice = (slice) => {
+  //   let { name, reducer } = slice;
+  //   newStore.loadedReducers[name] = reducer;
+  //   newStore.replaceReducer(combineReducers(newStore.loadedReducers));
+  // };
+  let newStore = legacy_createStore(combineReducers({}))
   return newStore;
 };
 // Stores
-const stores = {
+export const stores = {
   master: createEmptyStore(),
 };
 
@@ -89,6 +90,19 @@ export const modifyStore = (props) => {
 const MasterProvider = (props) => {
   return <Provider store={stores.master}>{props.children}</Provider>;
 };
+
+
+export const store1Context = React.createContext();
+export const store2Context = React.createContext();
+
+const useStoreSel = createSelectorHook(store1Context)
+const useMstrSel = createSelectorHook(store2Context)
+
+export const hooks = {
+  get mstr(){return useMstrSel((state)=> state)},
+  get stor(){return useStoreSel((state)=> state)},
+}
+
 
 export default MasterProvider;
 
