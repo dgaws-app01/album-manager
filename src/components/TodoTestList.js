@@ -6,7 +6,7 @@ import { AddTodoAction } from '../actions/TodoTestActions.js';
 export const TodoTestList = (props) => {
   const [td, setTd] = useState();
   const dispatch = useDispatch();
-  const Todo = useSelector((state) => state.Todo);
+  const Todo = useSelector((state) => {console.log(state);return state.Todo});
   const { todos } = Todo || {};
   const { nm } = props;
 

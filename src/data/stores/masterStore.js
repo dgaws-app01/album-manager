@@ -13,7 +13,7 @@ const createEmptyStore = () => {
   let newStore = configureStore({
     reducer: {},
     //middleware: (getDefaultMiddleware) => getDefaultMiddleware,
-    preloadedState: {},    
+    preloadedState: {storeName : "masterStore"},    
   });
   newStore.loadedReducers = {};
   /**
@@ -79,6 +79,10 @@ export const modifyStore = (props) => {
     targetStore.addSlice(slice);
 
     console.log(slice);
+
+    return {
+      actions : slice.actions
+    }
   }
 };
 
