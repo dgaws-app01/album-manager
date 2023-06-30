@@ -2,7 +2,7 @@ import React from "react";
 import {reducerP} from "../store"
 //import { useDispatch, useSelector, useStore, createSelectorHook, createDispatchHook } from 'react-redux';
 import { AddTodoAction } from '../actions/TodoTestActions.js';
-import {hooks} from '../data/stores/masterStore.js'
+import {hooks, mstrDsp, mstrActs} from '../data/stores/masterStore.js'
 //import {TodoTestReducer} from "./reducers/TodoTestReducers"
 
 export const AttachReducerLater = (params) => {
@@ -11,6 +11,9 @@ export const AttachReducerLater = (params) => {
   console.log(`AttachReducerLater / ${new Date().getTime()} `)
   return (<>
     {JSON.stringify(Todo)}
-    <button onClick={(e)=> hooks.stor = AddTodoAction(new Date().getSeconds()) }>Add Todo</button>
+    <button onClick={(e)=> {
+        hooks.stor = AddTodoAction(new Date().getSeconds())
+        mstrDsp(mstrActs.actions.addUser())
+      } }>Add Todo</button>
   </>)
 }

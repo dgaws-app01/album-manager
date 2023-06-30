@@ -13,12 +13,12 @@ import { titleCase } from '../../utils/text';
 const createEmptyStore = () => {
   let newStore = configureStore({
     reducer: {},
-    //middleware: (getDefaultMiddleware) => [...getDefaultMiddleware],
-    preloadedState: {storeName : "masterStore"},    
+    //middleware: (getDefaultMiddleware) => [getDefaultMiddleware],
+    preloadedState: { storeName: 'masterStore' },
   });
-  
+
   newStore.loadedReducers = {};
-  
+
   newStore.addSlice = (slice) => {
     let { name, reducer } = slice;
     newStore.loadedReducers[name] = reducer;
@@ -36,29 +36,33 @@ stores.master.loadedReducers = {};
 
 const $0 = (o, n) => {
   let name = Object.keys(o)[0];
-  return { [n[0]]: name, [n[1]]: o[name] };
+  let out = { [n[0]]: name, [n[1]]: o[name] };
+  console.log(out);
+  return out;
 };
 
 export const modifyStore = (props) => {
   const { storeName, store } = $0(props, ['storeName', 'store']);
   const retVal = {};
   //const store = props[storeName];
+
   if (storeName) {
     const {
-      reducerName,
+      name,
       reducer: { initialState, actions },
-    } = $0(store, ['reducerName', 'reducer']);
-    // const {
-    //   [reducerName]: { initialState, actions },
-    // } = store;
+    } = $0(store, ['name', 'reducer']);
+    
+    
 
     const slice = createSlice({
-      reducerName,
+      name,
       initialState,
-      reducers: {},
+      reducers: actions,
+      /*
       extraReducers: (builder) => {
         Object.keys(actions).forEach((action) => {
           let actDef = actions[action];
+
           if (action.includes('*')) {
             let matcher = action.replace('*', '');
             let actNm = `is${titleCase(matcher)}`;
@@ -69,55 +73,92 @@ export const modifyStore = (props) => {
             };
             builder.addMatcher(actMatcher[actNm], actDef);
           } else {
+            console.log({ where:"adding case to slice", action, actDef });
             builder.addCase(createAction(action), actDef);
           }
         });
-      },
+      },*/
     });
 
     const targetStore = (stores[storeName] =
       stores[storeName] || createEmptyStore());
     targetStore.addSlice(slice);
 
-    console.log(slice);
+    console.log({
+      storeName,
+      store,
+      name,
+      initialState,
+      actions,
+      acts: slice.actions,
+      reds: slice.caseReducers,
+    });
 
     return {
-      actions : slice.actions
-    }
+      actions: slice.actions,
+    };
   }
 };
+
+
+
+export const store1Context = React.createContext();
+export const store2Context = React.createContext();
+
+const useStoreSel = createSelectorHook(store1Context);
+const useMstrSel = createSelectorHook(store2Context);
+const dspStor = createDispatchHook(store1Context);
+const dspMstr = createDispatchHook(store2Context);
+export const setters = {};
+
+export function DispatcherCreator({ children }) {
+  setters.dspStor2 = dspStor();
+  setters.dspMstr2 = dspMstr();
+  console.log({ setters });
+  return <>{children}</>;
+}
+
+// Testing ...
+export const mstrActs = modifyStore({
+  master: {
+    users: {
+      initialState: { users: [{ id: 1, name: 'aaa' }] },
+      actions: {
+        addUser: (state, act) => {
+          console.log({ where: "addUser dispatched !", state, act });
+        },
+      },
+    },
+  },
+});
+
+console.log(mstrActs)
+//stores.master.dispatch(mstrActs.actions.addUser())
+
+export const mstrDsp = stores.master.dispatch
 
 const MasterProvider = (props) => {
   return <Provider store={stores.master}>{props.children}</Provider>;
 };
 
 
-export const store1Context = React.createContext();
-export const store2Context = React.createContext();
-
-const useStoreSel = createSelectorHook(store1Context)
-const useMstrSel = createSelectorHook(store2Context)
-const dspStor = createDispatchHook(store1Context)
-//const dspMstr = createDispatchHook(store2Context)
-export const setters = {
-}
-
-export function DispatcherCreator ({children}) {
-  setters.dspStor2 = dspStor()  
-  console.log({setters})
-  return (<>{children}</>)
-} 
 
 export const hooks = {
-  get mstr(){return useMstrSel((state)=> state)},
-  get stor(){return useStoreSel((state)=> state)},
-  set stor (v){ 
+  get mstr() {
+    return useMstrSel((state) => state);
+  },
+  get stor() {
+    return useStoreSel((state) => state);
+  },
+  set stor(v) {
     //console.log(dspStor)
     //let dsp = dspStor()
-    setters.dspStor2(v) 
-  }
-}
-
+    setters.dspStor2(v);
+  },
+  set mstr(v) {
+    setters.dspMstr2(v);
+  },
+};
 
 export default MasterProvider;
 
