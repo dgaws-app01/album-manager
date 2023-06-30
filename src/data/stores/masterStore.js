@@ -11,20 +11,20 @@ import { Provider, createSelectorHook, createDispatchHook } from 'react-redux';
 import { titleCase } from '../../utils/text';
 
 const createEmptyStore = () => {
-  // let newStore = configureStore({
-  //   reducer: {},
-  //   //middleware: (getDefaultMiddleware) => [...getDefaultMiddleware],
-  //   preloadedState: {storeName : "masterStore"},    
-  // });
+  let newStore = configureStore({
+    reducer: {},
+    //middleware: (getDefaultMiddleware) => [...getDefaultMiddleware],
+    preloadedState: {storeName : "masterStore"},    
+  });
   
-  // newStore.loadedReducers = {};
+  newStore.loadedReducers = {};
   
-  // newStore.addSlice = (slice) => {
-  //   let { name, reducer } = slice;
-  //   newStore.loadedReducers[name] = reducer;
-  //   newStore.replaceReducer(combineReducers(newStore.loadedReducers));
-  // };
-  let newStore = legacy_createStore(combineReducers({}))
+  newStore.addSlice = (slice) => {
+    let { name, reducer } = slice;
+    newStore.loadedReducers[name] = reducer;
+    newStore.replaceReducer(combineReducers(newStore.loadedReducers));
+  };
+  //let newStore = legacy_createStore(combineReducers({}))
   return newStore;
 };
 // Stores
@@ -102,19 +102,19 @@ const dspStor = createDispatchHook(store1Context)
 export const setters = {
 }
 
-export const dspStorF = ({children}) => {
-  setters.dspStor2 = dspStor()
+export function DispatcherCreator ({children}) {
+  setters.dspStor2 = dspStor()  
   console.log({setters})
-  return <>{children}</>
+  return (<>{children}</>)
 } 
 
 export const hooks = {
   get mstr(){return useMstrSel((state)=> state)},
   get stor(){return useStoreSel((state)=> state)},
   set stor (v){ 
-    console.log(dspStor)
-    let dsp = dspStor()
-    dsp(v) 
+    //console.log(dspStor)
+    //let dsp = dspStor()
+    setters.dspStor2(v) 
   }
 }
 

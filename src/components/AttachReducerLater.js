@@ -14,6 +14,6 @@ export const AttachReducerLater = (params) => {
   updt()
   return (<>
     {JSON.stringify(Todo)}
-    <button onClick={(e)=> hooks.stor = AddTodoAction("qqqq") }>Add Todo</button>
+    <button onClick={(e)=> hooks.stor = AddTodoAction(new Date().toISOString()) }>Add Todo</button>
   </>)
 }
