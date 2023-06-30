@@ -13,7 +13,7 @@ const createEmptyStore = () => {
   let newStore = configureStore({
     reducer: {},
     //middleware: (getDefaultMiddleware) => getDefaultMiddleware,
-    preloadedState: {},
+    preloadedState: {},    
   });
   newStore.loadedReducers = {};
   /**
@@ -40,7 +40,7 @@ const $0 = (o, n) => {
 
 export const modifyStore = (props) => {
   const { storeName, store } = $0(props, ['storeName', 'store']);
-  const retVal = {}  
+  const retVal = {};
   //const store = props[storeName];
   if (storeName) {
     const {
@@ -77,7 +77,6 @@ export const modifyStore = (props) => {
     const targetStore = (stores[storeName] =
       stores[storeName] || createEmptyStore());
     targetStore.addSlice(slice);
-    
 
     console.log(slice);
   }
