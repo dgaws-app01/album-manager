@@ -11,12 +11,12 @@ import { Provider, createSelectorHook, createDispatchHook } from 'react-redux';
 import { titleCase } from '../../utils/text';
 
 const createEmptyStore = () => {
-  let newStore = configureStore({
-    reducer: {},
-    // middleware: (getDefaultMiddleware) => {
-    //   console.log(getDefaultMiddleware)
-    //   getDefaultMiddleware().concat(getDefaultMiddleware[0])
-    // },
+  let newStore = configureStore({    
+     middleware: (getDefaultMiddleware) => {       
+       //console.log({middleware : getDefaultMiddleware})
+       getDefaultMiddleware().concat(getDefaultMiddleware[0])
+     },
+     reducer: {},
     preloadedState: { storeName: 'masterStore' },
   });
 
