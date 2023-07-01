@@ -13,7 +13,10 @@ import { titleCase } from '../../utils/text';
 const createEmptyStore = () => {
   let newStore = configureStore({
     reducer: {},
-    middleware: (getDefaultMiddleware) => ,
+    // middleware: (getDefaultMiddleware) => {
+    //   console.log(getDefaultMiddleware)
+    //   getDefaultMiddleware().concat(getDefaultMiddleware[0])
+    // },
     preloadedState: { storeName: 'masterStore' },
   });
 
