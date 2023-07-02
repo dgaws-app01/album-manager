@@ -28,4 +28,7 @@ export const api = (apis) => {
       return endPoints
     }
   })
+  
+
+  return api
 }
