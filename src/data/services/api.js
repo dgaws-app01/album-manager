@@ -10,7 +10,7 @@ export const api = (apis) => {
     endpoints : (builder) => {
       let endPoints = {}
       Object.keys(apis).forEach(k=> {
-        let {name, body, respH} = apis[k]
+        let {name, respH} = apis[k]
         if(!respH) respH = (r) => r.json()
 
         endPoints[k] = builder.mutation({
@@ -18,9 +18,14 @@ export const api = (apis) => {
             url: `${name || ""}`,            
             method: 'POST',
             body: question,
-            responseHandler: respH
+            responseHandler: respH,
+            validateStatus: (response, result) => response.status === 200 && !result.isError,
+            
+          })
         })
       })
+
+      return endPoints
     }
   })
 }
