@@ -9,7 +9,7 @@ import { legacy_createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider, createSelectorHook, createDispatchHook } from 'react-redux';
 import { titleCase } from '../../utils/text';
-import createAPI from '../services/api'
+import {createAPI} from '../services/api.js'
 
 const createEmptyStore = () => {
   let newStore = configureStore({    
