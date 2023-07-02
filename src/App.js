@@ -8,6 +8,7 @@ import {TestHookComp} from "./components/TestHookComp"
 
 export default function App() {
   console.log(`App / ${new Date().getTime()} `)
+
   return (
     <div>
       <h1>Album manager .</h1>

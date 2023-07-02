@@ -9,6 +9,10 @@ import {hooks, mstrDsp, mstrActs} from '../data/stores/masterStore.js'
 
 console.log(mstrActs)
 
+let x = "https://script.google.com/macros/s/AKfycbz-sN9HyNIDWW0hPnaZlfZOFmsXF8M7y_4oq68iDucPDIVonUIbIws_7vu_x2t5zZE75g/exec"
+let f = fetch(x, {method:"POST", body:{id:45, desc: "prior"}}).then(d=> d.json().then(j=> console.log(j)))
+
+
 export const AttachReducerLater = (params) => {
   
   const stor = hooks.stor //useStoreSel((state) => {console.log({state});return state.Todo});
