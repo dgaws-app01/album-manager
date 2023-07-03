@@ -3,9 +3,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 const baseUrl = `https://script.google.com/macros/s/AKfycbz-sN9HyNIDWW0hPnaZlfZOFmsXF8M7y_4oq68iDucPDIVonUIbIws_7vu_x2t5zZE75g/exec`
 const apiBaseQuery = fetchBaseQuery({baseUrl})
 
-export const createAPI = (queries) => {
+const createAPI = (queries) => {
   
   let api = createApi({
+    reducerPath: "masterApi",
     baseQuery : apiBaseQuery,
     endpoints : () => ({})
   })
@@ -36,8 +37,9 @@ export const createAPI = (queries) => {
       }
     })
   }
-
-  api.add(queries)
+  
+  api.add(queries || {})
   return api
 }
 
+export const api = createAPI()

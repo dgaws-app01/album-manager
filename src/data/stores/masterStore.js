@@ -2,7 +2,6 @@ import React from 'react';
 import {
   configureStore,
   createAction,
-  createReducer,
   createSlice,
 } from '@reduxjs/toolkit';
 import { legacy_createStore, applyMiddleware, combineReducers } from 'redux';
