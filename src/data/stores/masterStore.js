@@ -8,7 +8,7 @@ import { legacy_createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider, createSelectorHook, createDispatchHook } from 'react-redux';
 import { titleCase } from '../../utils/text';
-import {createAPI} from '../services/api.js'
+//import {createAPI} from '../services/api.js'
 
 const createEmptyStore = () => {
   let newStore = configureStore({    
@@ -100,9 +100,9 @@ export const modifyStore = (props) => {
   }
 };
 
-let aaa = createAPI({q1 : {name:""}})
+//let aaa = createAPI({q1 : {name:""}})
 
-console.log(aaa)
+//console.log(aaa)
 
 export const store1Context = React.createContext();
 export const store2Context = React.createContext();
